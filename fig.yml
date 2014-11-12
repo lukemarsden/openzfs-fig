@@ -7,11 +7,13 @@ mysql:
   image: lmarsden/openzfs-mysql
   environment:
     MYSQL_ROOT_PASSWORD: 12345
+  volumes: ["/data"]
 mediawiki:
   image: lmarsden/openzfs-mediawiki
   links:
    - "mysql:mysql"
   expose: "8081"
+  volumes: ["/data"]
 varnish:
   image: lmarsden/openzfs-varnish
   links:
