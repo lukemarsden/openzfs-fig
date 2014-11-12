@@ -1,0 +1,20 @@
+mailman:
+  # self-contained mailman and web server
+  image: lmarsden/openzfs-mailman
+  volumes: ["/data"]
+  expose: "8080"
+mysql:
+  image: lmarsden/openzfs-mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: 12345
+mediawiki:
+  image: lmarsden/openzfs-mediawiki
+  links:
+   - "mysql:mysql"
+  expose: "8081"
+varnish:
+  image: lmarsden/openzfs-varnish
+  links:
+   - "mailman:mailman"
+   - "mediawiki:mediawiki"
+  ports: "80"
